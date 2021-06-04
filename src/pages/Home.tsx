@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+
 import { Header } from '../components/Header';
 import { MyTasksList } from '../components/MyTasksList';
 import { TodoInput } from '../components/TodoInput';
@@ -15,6 +16,9 @@ export function Home() {
 
   function handleAddTask(newTaskTitle: string) {
     //TODO - add new task if it's not empty
+    if (newTaskTitle === '') {
+      return
+    }
     const data = {
       id: new Date().getTime(),
       title: newTaskTitle,
@@ -25,6 +29,14 @@ export function Home() {
 
   function handleMarkTaskAsDone(id: number) {
 
+    const updatedTasks: any = tasks.map((task) => {
+      if (task.id === id) {
+        task.done = true
+      }
+      return task
+    })
+
+    setTasks(updatedTasks)
   }
 
   function handleRemoveTask(id: number) {
